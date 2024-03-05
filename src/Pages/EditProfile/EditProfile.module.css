@@ -1,0 +1,210 @@
+.container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+}
+.profile_edit{
+    background-color: #e5e5e5;
+    width: 270px;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000000;
+}
+.profile_btn2{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-top: 40px;
+    border: none;
+    font-size: 28px;
+    transition: all .3s ease;
+    & svg{
+        color: #ffffff;
+        margin-top: 5px;
+    }
+}
+.profile_btn2:hover{
+    outline: 3px solid #fca311;
+    color: #ffffff;
+}
+.image{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px;
+    width: calc(100% - 30px);
+    border-radius: 5px 5px 0 0;
+    & .profile_btn{
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        margin-top: 40px;
+        border: none;
+        transition: all .3s ease;
+        position: relative;
+        color: #ffffff;
+        & img{
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        & svg {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+        }
+    }
+    & .profile_btn:hover{
+        outline: 3px solid #fca311;
+        color: #ffffff;
+    } 
+    & input{
+        font-size: 20px;
+        text-align: center;
+        width: 80%;
+        font-weight: bold;
+        margin-top: 5px;
+        background-color: #e5e5e525;
+        border: none;
+        padding-top: 3px;
+        transition: all .3s ease;
+    }
+}
+.image input:focus{
+    outline: none;
+    border-bottom: 2px solid #fca311;
+    background-color: transparent;
+}
+.info_profile{
+    padding: 20px 15px;
+    min-height: 100px;
+    width: calc(100% - 30px);
+    & label{
+        font-weight: bold;
+        font-size: 12px;
+    }
+    & #desc{
+        background-color: transparent;
+        resize: none;
+        font-size: 16px;
+        width: 238px;
+        min-height: 20px;
+        max-height: 60px;
+        border: none;
+        border-bottom: 2px solid #fca311;
+        transition: all .3s ease;
+        margin-bottom: 20px;
+    }
+    & #desc:focus {
+        height: 60px;
+        outline: none;
+    }
+}
+.link_btn{
+    width: 100%;
+    padding: 8px;
+    font-weight: 800;
+    border: 4px dashed #888888;
+    border-radius: 5px;
+    color: #898989;
+    background-color: #bebebe;
+    transition: all .3s ease;
+}
+.link_btn:hover{
+    border: 4px solid;
+}
+
+.links_add{
+    padding: 20px 15px;
+    position: absolute;
+    top: calc(100vh / 2 - 120px);
+    width: 240px;
+    background-color: #e5e5e5;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 0 10px 1000px #1f1f1f92;
+    & label {
+        font-weight: bold;
+        font-size: 12px;
+        margin-top: 15px;
+    }
+    & input{
+        background-color: transparent;
+        border: none;
+        font-size: 16px;
+        border-bottom: 2px solid #fca311;
+        padding: 3px 5px;
+    }
+}
+.close_btn{
+    border-radius: 20px;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -15px;
+    right: 2px;
+    border: none;
+    background-color: rgb(255, 32, 32);
+    color: #ffffff;
+    font-weight: bold;
+    padding: 5px;
+}
+.links_area{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%; 
+}
+.links_area a{
+    border: 2px solid #888888;
+    border-radius: 3px;
+    display: block;
+    padding: 8px;
+    font-style: italic;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ffffff;
+    text-align: center;
+    background-color: #888888;
+    flex-grow: 1;
+}
+.link_container{
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+}
+.edit, .delete{
+    padding: 10px 15px;
+    color: #ffffff;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+.edit{
+    background: #fca311;
+}
+.delete{
+    background-color: rgb(255, 32, 32);
+}
+.delete:hover {
+    box-shadow: 0 0 3px 2px rgb(255, 32, 32);
+}
+.edit:hover {
+    box-shadow: 0 0 3px 2px #fca311;    
+}
+@media screen and (min-width: 400px) {
+    .profile_edit{
+        width: 320px;
+    }
+    .info_profile #desc{
+        width: calc(320px - 30px);
+    }
+}

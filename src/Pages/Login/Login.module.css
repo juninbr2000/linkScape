@@ -1,0 +1,80 @@
+.container_login{
+    text-align: center;
+    padding: 40px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.container_login h1{
+    margin-bottom: 1.2em;
+}
+.formulario{
+    background-color: #e5e5e5;
+    width: 270px;
+    margin: 10px auto;
+    color: #000000;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 5px 3px 10px #0000006c;
+}
+.formulario h3{
+    font-size: 25px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    
+}
+.inputs_login label{
+    margin-top: 20px;
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+.inputs_login{
+    display: flex;
+    flex-direction: column;
+    align-items: self-start;
+}
+.inputs_login input{
+    font-size: 17px;
+    width: calc(100% - 20px);
+    border: none;
+    background-color: transparent;
+    padding: 5px 10px;
+    border-bottom: 2px solid #fca311;
+    transition: all .3s ease;
+}
+.inputs_login input:focus{
+    outline: 2px solid #fca311;
+    transform: scale(1.05);
+    border-radius: 10px;
+    box-shadow: 0 0 5px 4px #fca311;
+    background-color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+.register{
+    margin: 2px 0 10px;
+}
+.login_google{
+    padding: 5px 20px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 3px solid #fca311;
+    color: #000;
+    display: flex;
+    gap: 10px;
+    transition: all .3s ease;
+    margin: 10px auto 0;
+    & svg{
+        border-right: 2px solid #000;
+        padding-right: 10px ;
+        margin-top: 2px;
+    }
+}
+.login_google:hover{
+    box-shadow: 0 0 5px 2px #fca311;
+}
+@media screen and (min-width: 400px) {
+    .formulario{
+        width: 320px;
+    }
+}
