@@ -3,6 +3,7 @@
     align-items: center;
     flex-direction: column;
     padding: 30px;
+    margin-top: 10px;
 }
 .profile_edit{
     background-color: #e5e5e5;

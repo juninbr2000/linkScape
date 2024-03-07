@@ -6,7 +6,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useAuthValue } from '../../context/AuthContext';
 import { db } from '../../firebase/config';
 
-import { FaCheck, FaUser, FaRegCopy } from 'react-icons/fa'
+import { FaCheck, FaUser, FaQrcode } from 'react-icons/fa'
 import styels from "./Profile.module.css"
 
 
@@ -55,7 +55,24 @@ const Profile = () => {
     }
 
     const copyLinkButton = () => {
+        const userUrl = window.location.href
         
+        const inputElement = document.createElement('input');
+        inputElement.value = userUrl;
+        document.body.appendChild(inputElement)
+
+        inputElement.select();
+        inputElement.setSelectionRange(0, 99999);
+
+        document.execCommand('copy');
+
+        document.body.removeChild(inputElement)
+
+        setMessage("Link copiado para area de transferencia!")
+
+        setTimeout(() => {
+            setMessage('')
+        }, 3000)
     }
 
     const splitDescription = profile.description.split('\n');
@@ -83,7 +100,7 @@ const Profile = () => {
                     {links.length > 0 ? links.map((link) => <a href={link.url} target='_blanck' key={link.id} className={styels.area_link}>{link.title}</a>) : <p>Este usuario ainda nao adicionou nenhum link</p>}
                     {user && user.uid === id && <div className={styels.user_buttons}>
                         <button className={styels.edit} onClick={() => {navigate(`/edit/${id}`)}}>Editar perfil</button>
-                        <button className={styels.copy} onClick={copyLinkButton}><FaRegCopy/></button>
+                        <button className={styels.copy} onClick={copyLinkButton}><FaQrcode/></button>
                     </div>}
                         {message && <p className={styels.alert}>{message}</p>}
                 </div>

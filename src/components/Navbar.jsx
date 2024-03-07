@@ -4,7 +4,8 @@ import { NavLink } from "react-router-dom"
 import { useAuthValue } from "../context/AuthContext"
 import { useAuthentication } from '../hooks/useAuthentication'
 
-import {FaHome, FaUser, FaKey, FaWalking, FaUserEdit, FaPenSquare, FaBars} from 'react-icons/fa'
+import {FaHome, FaUser, FaKey, FaWalking, FaUserEdit, FaPenSquare} from 'react-icons/fa'
+import { BsGearFill } from 'react-icons/bs'
 import styles from './Navbar.module.css'
 
 const Navbar = () => {
@@ -18,12 +19,12 @@ const Navbar = () => {
     
   return (
     <nav className={styles.nav}>
-        <h1 className="logo"><NavLink to="/">Link<span>Scape</span></NavLink></h1>
+        <div className={styles.menuTop}>
+            <h1 className="logo"><NavLink to="/">Link<span>Scape</span></NavLink></h1>
 
-        <button className={styles.menu} onClick={toggleMenu}><FaBars/></button>
-        <ul className={`${styles.menuList} ${isMenuOpen ? styles.showMenu : ''}`}>
-            <h1 className="logo">Link<span>Scape</span></h1>
-            <button className={styles.close} onClick={toggleMenu}>X</button>
+            <button className={styles.logout}><BsGearFill />Config</button>
+        </div>
+        <ul className={styles.menuList}>
             <div className={styles.list}>
             <li>
                 <NavLink to='/' className={({isActive}) => (isActive ? styles.active : '')} onClick={toggleMenu}><FaHome/> Home</NavLink>

@@ -4,6 +4,7 @@
     align-items: center;
     margin: 0;
     overflow: none;
+    margin-top: 40px;
 }
 .container_profile{
     background-color: #778899;
@@ -129,13 +130,12 @@
     box-shadow: 0 0 5px 2px #212121;
 }
 .alert{
-    height: 18px;
     font-weight: bold;
     margin-top: 10px;
     position: absolute;
     bottom: 20px;
     background-color: #e5e5e5;
-    padding: 10px 40px;
+    padding: 10px 25px;
     right: 10px;
     border-radius: 5px;
 }
