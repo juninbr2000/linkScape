@@ -28,10 +28,13 @@ const EditProfile = () => {
   const [color, setcolor] = useState('')
   const [profileImage, setProfileImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [buttonstyle, SetButtonStyle] = useState('button1')
   const [isSalving, setIsSalving] = useState(false)
+  const [loading ,setLoading] = useState(false)
 
   useEffect(() => {
     const fetchProfileData = async () => {
+      setLoading(true)
       try {
         const profileRef = doc(db, 'profile', id);
         const profileSnapshot = await getDoc(profileRef);
@@ -44,9 +47,12 @@ const EditProfile = () => {
           setLinks(profileData.links || []);
           setcolor(profileData.color || '#778899')
           setProfileImage(profileData.imageUrl || null)
+          SetButtonStyle(profileData.buttonstyle || 'button1')
           console.log(profileData)
+          setLoading(false)
         }
       } catch (error) {
+        setLoading(false)
         console.error('Erro ao recuperar os dados do perfil:', error);
       }
     };
@@ -142,6 +148,7 @@ const EditProfile = () => {
         links,
         color,
         imageUrl,
+        buttonstyle
       };
   
       // Atualiza o documento do perfil no banco de dados
@@ -157,6 +164,13 @@ const EditProfile = () => {
   const estilo = {
     backgroundColor: `${color}`
   }
+  
+  if (loading) {
+    return <div className='load'>
+        <h1 className='logo'>Link<span>Scape</span></h1>
+        <div className="loader"></div>
+    </div>;
+  }
 
   return (
     <div className={styles.container}>
@@ -164,7 +178,7 @@ const EditProfile = () => {
         <div className={styles.image} style={estilo}>
           <label htmlFor="colorbac" style={{color: "#ffffff",display: 'block', alignSelf: 'flex-end'}}><FaPaintRoller/></label>
           <input type="color" id='colorbac' value={color} onChange={(e) => setcolor(e.target.value)} style={{position: 'absolute', opacity: '0', width: '0', height:'0'}}/>
-          <label htmlFor="fileInput" className={user.imageUrl !== null ? styles.profile_btn : styles.profile_btn2}>
+          <label htmlFor="fileInput" className={previewImage !== null ? styles.profile_btn : styles.profile_btn2}>
             {previewImage ? (
               <>
                 <img src={previewImage} />
@@ -205,6 +219,7 @@ const EditProfile = () => {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className={buttonstyle}
                   >
                     {link.title}
                   </a>
@@ -243,6 +258,20 @@ const EditProfile = () => {
             >
               X
             </button>
+            <p>Personalize o estilo do botão</p>
+            <div className={styles.buttons_area}>
+              <button className={`${styles.buttonSelect1} ${buttonstyle === 'button1' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button1')}>Estilo 1</button>
+              <button className={`${styles.buttonSelect2} ${buttonstyle === 'button2' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button2')}>Estilo 2</button>
+              <button className={`${styles.buttonSelect3} ${buttonstyle === 'button3' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button3')}>Estilo 3</button>
+              <button className={`${styles.buttonSelect4} ${buttonstyle === 'button4' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button4')}>Estilo 4</button>
+              <button className={`${styles.buttonSelect5} ${buttonstyle === 'button5' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button5')}>Estilo 5</button>
+              <button className={`${styles.buttonSelect6} ${buttonstyle === 'button6' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button6')}>Estilo 6</button>
+              <button className={`${styles.buttonSelect7} ${buttonstyle === 'button7' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button7')}>Estilo 7</button>
+              <button className={`${styles.buttonSelect8} ${buttonstyle === 'button8' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button8')}>Estilo 8</button>
+              <button className={`${styles.buttonSelect9} ${buttonstyle === 'button9' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button9')}>Estilo 9</button>
+            </div>
+            <p className={styles.alert}>um unico estilo de botão é aplicado para todo o perfil</p>
+
             <p>Adicione Links ao seu perfil</p>
             <label htmlFor="title-link">Titulo</label>
             <input

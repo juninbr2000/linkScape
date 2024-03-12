@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 import { useAuthValue } from "../context/AuthContext"
 import { useAuthentication } from '../hooks/useAuthentication'
@@ -11,41 +11,42 @@ import styles from './Navbar.module.css'
 const Navbar = () => {
     const { user } = useAuthValue()
     const {logout} = useAuthentication()
-    const [isMenuOpen, SetIsMenuOpen] = useState(false)
+    const navigate = useNavigate()
 
-    const toggleMenu = () => {
-        SetIsMenuOpen(!isMenuOpen)
+    const clickconfig = ()=>{
+        navigate('/config')
     }
+
     
   return (
     <nav className={styles.nav}>
         <div className={styles.menuTop}>
             <h1 className="logo"><NavLink to="/">Link<span>Scape</span></NavLink></h1>
 
-            <button className={styles.logout}><BsGearFill />Config</button>
+
         </div>
         <ul className={styles.menuList}>
             <div className={styles.list}>
             <li>
-                <NavLink to='/' className={({isActive}) => (isActive ? styles.active : '')} onClick={toggleMenu}><FaHome/> Home</NavLink>
+                <NavLink to='/' className={({isActive}) => (isActive ? styles.active : '')}><FaHome/> Home</NavLink>
             </li>
             {!user && (
                 <>
                     <li>
-                        <NavLink to='/login' className={({isActive}) => (isActive ? styles.active : '')} onClick={toggleMenu}><FaKey /> Entrar</NavLink>
+                        <NavLink to='/login' className={({isActive}) => (isActive ? styles.active : '')}><FaKey /> Entrar</NavLink>
                     </li>
                     <li>
-                        <NavLink to='/register' className={({isActive}) => (isActive ? styles.active : '')} onClick={toggleMenu}><FaPenSquare /> Cadastrar</NavLink>
+                        <NavLink to='/register' className={({isActive}) => (isActive ? styles.active : '')}><FaPenSquare /> Cadastrar</NavLink>
                     </li>
                 </>
             )}
             {user && (
                 <>
                     <li>
-                        <NavLink to={`/${user.uid}`} className={({isActive}) => (isActive ? styles.active : '')} onClick={toggleMenu}><FaUser/> Perfil</NavLink>
+                        <NavLink to={`/${user.uid}`} className={({isActive}) => (isActive ? styles.active : '')}><FaUser/> Perfil</NavLink>
                     </li>
                     <li>
-                        <NavLink to={`/edit/${user.uid}`} className={({isActive}) => (isActive ? styles.active : '')} onClick={toggleMenu}><FaUserEdit/> Editar Perfil</NavLink>
+                        <NavLink to={`/edit/${user.uid}`} className={({isActive}) => (isActive ? styles.active : '')}><FaUserEdit/> Editar Perfil</NavLink>
                     </li>
                 </>
             )}

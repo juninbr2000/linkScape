@@ -17,8 +17,6 @@ const Profile = () => {
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('')
     const navigate = useNavigate();
-    const linkUrl = window.location.href
-    
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -49,7 +47,8 @@ const Profile = () => {
     }
 
     if (!profile) {
-        return <div>Perfil não encontrado</div>;
+        navigate('*')
+        return;
     } else {
         console.log(profile)
     }
@@ -97,7 +96,9 @@ const Profile = () => {
                             <p key={index}>{line}</p>
                         ))}
                     </div>
-                    {links.length > 0 ? links.map((link) => <a href={link.url} target='_blanck' key={link.id} className={styels.area_link}>{link.title}</a>) : <p>Este usuario ainda nao adicionou nenhum link</p>}
+                    <div className={styels.userlinks}>
+                        {links.length > 0 ? links.map((link) => <a href={link.url} target='_blanck' key={link.id} className={profile.buttonstyle}>{link.title}</a>) : <p>Este usuario ainda nao adicionou nenhum link</p>}
+                    </div>
                     {user && user.uid === id && <div className={styels.user_buttons}>
                         <button className={styels.edit} onClick={() => {navigate(`/edit/${id}`)}}>Editar perfil</button>
                         <button className={styels.copy} onClick={copyLinkButton}><FaQrcode/></button>

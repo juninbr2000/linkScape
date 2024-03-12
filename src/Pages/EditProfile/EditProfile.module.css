@@ -25,12 +25,23 @@
     transition: all .3s ease;
     & svg{
         color: #ffffff;
-        margin-top: 5px;
+        position: relative;
+        top: -58px;
+        left: 21px;
+        color: transparent;
+        transition: all .3s ease;
+    }
+    & img{
+        width: 100%;
+        border-radius: 50%;
     }
 }
 .profile_btn2:hover{
     outline: 3px solid #fca311;
     color: #ffffff;
+    & svg{
+        color: #fff;
+    }
 }
 .image{
     display: flex;
@@ -164,17 +175,7 @@
     width: 100%; 
 }
 .links_area a{
-    border: 2px solid #888888;
-    border-radius: 3px;
-    display: block;
-    padding: 8px;
-    font-style: italic;
-    font-weight: bold;
-    text-decoration: none;
-    color: #ffffff;
     text-align: center;
-    background-color: #888888;
-    flex-grow: 1;
 }
 .link_container{
     display: flex;
@@ -201,6 +202,113 @@
 .edit:hover {
     box-shadow: 0 0 3px 2px #fca311;    
 }
+
+.buttons_area{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    overflow-y: auto;
+    gap: 10px;
+    padding: 10px 2px;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+}
+
+.buttonSelect1{
+    border-radius: 3px;
+    border: 2px solid #888888;
+    padding: 8px;
+    font-style: italic;
+    color: #fff;
+    font-weight: bold;
+    background-color: #888888;
+    
+}
+.buttonSelect2{
+    border-radius: 20px;
+    padding: 8px;
+    border: 2px solid;
+    font-weight: bold;
+    box-shadow: 0 3px 0 #000;
+}
+.buttonSelect3{
+    padding: 8px 10px;
+    border: 1px solid;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #000;
+    font-family: serif;
+}
+.buttonSelect4{
+    padding: 8px;
+    border: 2px solid;
+    border-radius: 5px;
+    box-shadow: 2px 2px 0 #000;
+    font-weight: bold;
+    color: #000;
+}
+.buttonSelect5{
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #fefefe;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px #0000002d;
+    color: #000;
+}
+.buttonSelect6{
+    padding: 8px;
+    background-color: #363636;
+    color: #aaa;
+    font-weight: bold;
+    border: 2px solid;
+    border-radius: 5px;
+}
+.buttonSelect7{
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+    background-color: #fefefe;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px #0000002d;
+    color: #000;
+}
+.buttonSelect8{
+    padding: 8px;
+    background-color: #000;
+    color: #fff;
+    font-weight: 900;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 1px 2px 4px #00000061;
+}
+.buttonSelect9{
+    padding: 8px;
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 1px 2px 4px #00000061;
+}
+    
+.buttonSelect9:hover {
+    background-color: #0056b3;
+}
+    
+
+
+.selectedButton {
+    outline: 2px solid #fca311; 
+  }
+  
+.alert{
+    font-size: 8px;
+    margin-bottom: 5px;
+}
+
 @media screen and (min-width: 400px) {
     .profile_edit{
         width: 320px;
