@@ -20,7 +20,7 @@ const Navbar = () => {
     <nav className={styles.nav}>
         <h1 className="logo"><NavLink to="/">Link<span>Scape</span></NavLink></h1>
 
-        <button className={styles.menu} onClick={toggleMenu}><FaBars/></button>
+        <button className={styles.menu} onClick={toggleMenu}>●●●</button>
         <ul className={`${styles.menuList} ${isMenuOpen ? styles.showMenu : ''}`}>
             <h1 className="logo">Link<span>Scape</span></h1>
             <button className={styles.close} onClick={toggleMenu}>X</button>
@@ -50,7 +50,7 @@ const Navbar = () => {
             )}
             {user && (
                 <li>
-                    <button onClick={logout} className={styles.logout}> < FaWalking />Sair</button>
+                    <button onClick={logout} className={styles.logout}> <FaWalking />Sair</button>
                 </li>
             )}
 

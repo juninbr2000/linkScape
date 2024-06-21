@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
+    margin-top: 80px;
 }
 .container_login h1{
     margin-bottom: 1em;
@@ -40,14 +41,14 @@
     border: none;
     background-color: transparent;
     padding: 5px 10px;
-    border-bottom: 2px solid #fca311;
+    border-bottom: 2px solid #2194ae;
     transition: all .3s ease;
 }
 .inputs_login input:focus{
-    outline: 2px solid #fca311;
+    outline: 2px solid #2194ae;
     transform: scale(1.05);
     border-radius: 10px;
-    box-shadow: 0 0 5px 4px #fca311;
+    box-shadow: 0 0 5px 4px #2194ae;
     background-color: #ffffff;
     border-bottom: 2px solid #ffffff;
 }
@@ -57,14 +58,14 @@
     margin: 20px 0 10px;
     font-size: 17px;
     font-weight: bold;
-    background-color: #fca311;
+    background-color: #2194ae;
     color: #ffffff;
     border: none;
     border-radius: 10px;
     transition: all .3s ease;
 }
 .button_login:hover{
-    box-shadow: 0 0 5px 3px #fca311;
+    box-shadow: 0 0 5px 3px #2194ae;
 }
 .register{
     margin: 2px 0 10px;

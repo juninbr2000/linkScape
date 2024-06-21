@@ -34,9 +34,6 @@ const Login = () => {
     };
     
     const res = await login(user);
-    navigate(`/`)
-    console.log(res)
-    console.log(AuthError)
   }
   
   const handleGoogleLogin = () => {
@@ -63,7 +60,6 @@ const Login = () => {
             links: [],
             verify: false,
         })
-        navigate(`/${result.user.uid}`)
       } catch (error){
         setError(error.message)
       }}

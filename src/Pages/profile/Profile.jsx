@@ -8,6 +8,7 @@ import { db } from '../../firebase/config';
 
 import { FaCheck, FaUser, FaRegCopy } from 'react-icons/fa'
 import styels from "./Profile.module.css"
+import Footer from '../../components/Footer';
 
 
 const Profile = () => {
@@ -17,8 +18,6 @@ const Profile = () => {
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('')
     const navigate = useNavigate();
-    const linkUrl = window.location.href
-    
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -49,20 +48,47 @@ const Profile = () => {
     }
 
     if (!profile) {
-        return <div>Perfil não encontrado</div>;
+       navigate('*');
     } else {
         console.log(profile)
     }
 
     const copyLinkButton = () => {
+        const userUrl = window.location.href
         
+        const inputElement = document.createElement('input');
+        inputElement.value = userUrl;
+        document.body.appendChild(inputElement)
+
+        inputElement.select();
+        inputElement.setSelectionRange(0, 99999);
+
+        document.execCommand('copy');
+
+        document.body.removeChild(inputElement)
+
+        setMessage("Link copiado para area de transferencia!")
+
+        setTimeout(() => {
+            setMessage('')
+        }, 3000)
     }
+    
+    const isColorDark = (color) => {
+        color = color.replace('#', '');
+        let r = parseInt(color.substring(0, 2), 16);
+        let g = parseInt(color.substring(2, 4), 16);
+        let b = parseInt(color.substring(4, 6), 16);
+        let brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        return brightness < 128;
+    };
 
     const splitDescription = profile.description.split('\n');
     console.log(splitDescription)
     const links = profile.links
     const ProfileBackgroundColor = {
-        backgroundColor: profile.color
+        backgroundColor: profile.color,
+        color: isColorDark(profile.color) ? '#fff' : '#000'
     }
 
     return (
@@ -86,6 +112,7 @@ const Profile = () => {
                         <button className={styels.copy} onClick={copyLinkButton}><FaRegCopy/></button>
                     </div>}
                         {message && <p className={styels.alert}>{message}</p>}
+                    <Footer/>
                 </div>
             </div>
         </div>

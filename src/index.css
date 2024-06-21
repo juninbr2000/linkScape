@@ -5,9 +5,10 @@
 body{
   margin: 0;
   padding: 0;
-  background-color: #14213d;
+  background-color: #1f1f1f;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
+  overflow-x: hidden;
 }
 .logo{
   color: #e5e5e5;
@@ -18,7 +19,7 @@ body{
     font-size: 30px;
   }
   & span{
-    color: #fca311;
+    color: #2194ae;
     font-weight: 700;
     font-style: italic;
   }
@@ -29,7 +30,7 @@ body{
   margin: 20px 0 10px;
   font-size: 17px;
   font-weight: bold;
-  background-color: #fca311;
+  background-color: #2194ae;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -37,10 +38,10 @@ body{
   transition: all .3s ease;
 }
 .button:hover{
-  box-shadow: 0 0 5px 3px #fca311;
+  box-shadow: 0 0 5px 3px #2194ae;
 }
 .button:disabled{
-  background-color: #b17618;
+  background-color: #1f6676;
 }
 .error{
   max-height: 20px;

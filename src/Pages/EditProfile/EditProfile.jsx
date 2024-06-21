@@ -11,6 +11,7 @@ import { db } from '../../firebase/config';
 
 import { FaCamera, FaLink, FaPen, FaTrash, FaPaintRoller } from 'react-icons/fa';
 import styles from './EditProfile.module.css';
+import Footer from '../../components/Footer';
 
 const EditProfile = () => {
   const { user } = useAuthValue();
@@ -29,6 +30,11 @@ const EditProfile = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isSalving, setIsSalving] = useState(false)
+
+  if(id !== user.uid){    
+    navigate(`/${id}`)
+    return
+  }
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -101,6 +107,10 @@ const EditProfile = () => {
     toggleLinksAdd();
   };
 
+  if(id !== user.uid){
+    navigate('*')
+  }
+
   const editLink = (linkId) => {
     setLinkTitle(linkId.title);
     setTextUrl(linkId.url);
@@ -159,10 +169,10 @@ const EditProfile = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={estilo}>
       <form className={styles.profile_edit} onSubmit={handleSubmit}>
         <div className={styles.image} style={estilo}>
-          <label htmlFor="colorbac" style={{color: "#ffffff",display: 'block', alignSelf: 'flex-end'}}><FaPaintRoller/></label>
+          <label htmlFor="colorbac" style={{color: "#ffffff",display: 'block', alignSelf: 'flex-end', marginRight: '15px'}}><FaPaintRoller/></label>
           <input type="color" id='colorbac' value={color} onChange={(e) => setcolor(e.target.value)} style={{position: 'absolute', opacity: '0', width: '0', height:'0'}}/>
           <label htmlFor="fileInput" className={user.imageUrl !== null ? styles.profile_btn : styles.profile_btn2}>
             {previewImage ? (
@@ -233,6 +243,7 @@ const EditProfile = () => {
             </button>
           </div>
           {isSalving === false ? <button className="button">Salvar Perfil</button> : <button disabled className='button'>Aguarde...</button>}
+          <Footer/>
         </div>
         {showLinksAdd === true && (
           <div className={styles.links_add}>
