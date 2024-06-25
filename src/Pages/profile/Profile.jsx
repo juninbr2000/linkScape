@@ -46,7 +46,7 @@ const Profile = () => {
             <div className="loader"></div>
         </div>;
     }
-
+    
     if (!profile) {
        navigate('*');
     } else {
@@ -83,9 +83,11 @@ const Profile = () => {
         return brightness < 128;
     };
 
-    const splitDescription = profile.description.split('\n');
+    const splitDescription = () => {
+        return profile.description ? profile.description.split('\n') : [];
+    }
     console.log(splitDescription)
-    const links = profile.links
+    const links = profile.links || [];
     const ProfileBackgroundColor = {
         backgroundColor: profile.color,
         color: isColorDark(profile.color) ? '#fff' : '#000'
@@ -101,12 +103,12 @@ const Profile = () => {
                     </div>
                 </div>
                 <div className={styels.info_profile}>
-                    <div className={styels.desc}>
-                        {splitDescription.map((line, index) => (
+                    {profile.description && <div className={styels.desc}>
+                        {splitDescription().map((line, index) => (
                             <p key={index}>{line}</p>
                         ))}
-                    </div>
-                    {links.length > 0 ? links.map((link) => <a href={link.url} target='_blanck' key={link.id} className={styels.area_link}>{link.title}</a>) : <p>Este usuario ainda nao adicionou nenhum link</p>}
+                    </div>}
+                    {links.length > 0 ? links.map((link) => <a href={link.url} target='_blank' key={link.id} className={styels.area_link}>{link.title}</a>) : <p>Este usuario ainda nao adicionou nenhum link</p>}
                     {user && user.uid === id && <div className={styels.user_buttons}>
                         <button className={styels.edit} onClick={() => {navigate(`/edit/${id}`)}}>Editar perfil</button>
                         <button className={styels.copy} onClick={copyLinkButton}><FaRegCopy/></button>

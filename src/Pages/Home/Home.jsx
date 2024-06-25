@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styles from './Home.module.css'
 import { useAuthValue } from '../../context/AuthContext'
 
-import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from 'react-icons/fa'
+import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaCheck } from 'react-icons/fa'
 
 const Home = () => {
 
@@ -16,20 +16,31 @@ const Home = () => {
       <header className={styles.header}>
         <h3>Bem Vindo(a) ao</h3>
         <h1 className='logo'>Link<span>Scape</span></h1>
-        <h3>Um unico Link, Diversas possibilidades</h3>
+        <h3 className={styles.description}>Um Link, Diversas possibilidades</h3>
 
-        <div>
+        <div className={styles.header_btn}>
         {!user ? <>
-            <Link to={"/register"}>Cadastre-se</Link>
+          	<Link to={"/login"} className={styles.primary}>Entrar</Link>
             <p>ou</p>
-          	<Link to={"/login"}>Faça Login</Link>
-          </> : <Link to={`/${user.uid}`}>Meu Perfil</Link> }
+            <Link to={"/register"} className={styles.secondary}>Criar conta</Link>
+          </> : <Link to={`/${user.uid}`} className={styles.primary}>Meu Perfil</Link> }
         </div>
       </header>
-      <section className={styles.section2}>
+      <section className={styles.section}>
         <div>
           <h2 className={styles.title}>Todas as Suas Redes Sociais em um Único Link</h2>
-          <p>Organize e compartilhe todas as suas redes sociais e links importantes em um só lugar com nosso aplicativo. Simplifique a forma como você compartilha suas informações online e torne mais fácil para seus seguidores encontrarem e se conectarem com você em todas as plataformas.</p>
+          <p>Organize e compartilhe todas as suas redes sociais e links importantes em um só lugar com LinkScape. Simplifique a forma como você compartilha suas informações online e torne mais fácil para seus seguidores encontrarem e se conectarem com você em todas as plataformas.</p>
+        </div>
+        <div className={styles.btn_container}>
+          <h3 className={styles.link_btn}>Facebook</h3>
+          <h3 className={styles.link_btn}>Instagram</h3>
+          <h3 className={styles.link_btn}>Linkedin</h3>
+        </div>
+      </section>
+      <section className={styles.sections_links}>
+        <div>
+          <h2 className={styles.title}>Das suas redes Sociais ou até o seu site</h2>
+          <p>No LinkScape você pode adicionar qualquer link, desde suas redes sociais ou até mesmo o site da sua loja, empresa ou seu portifolio</p>
         </div>
         <div className={styles.icons}>
           <FaFacebook/>
@@ -40,11 +51,19 @@ const Home = () => {
       </section>
       <section className={styles.section3}>
         <div className={styles.features}>
-          <h2>Recursos Principais do LinkScape</h2>
-          <ul>
-            <li>Personalização total do seu link de perfil</li>
-            <li>Integração simples com suas redes sociais favoritas</li>
-            <li>Compatível com todos os dispositivos e navegadores</li>
+          <h2 className={styles.title}>Recursos Principais do LinkScape</h2>
+          <p>Pensamos na melhor e mais simples maneira para adicionar e editar seus links, de forma facil rapida e segura</p>
+          <ul className={styles.list}>
+            <li>
+
+              <p>Personalização total do seu link de perfil</p>
+            </li>
+            <li>
+              <p>Integração simples com suas redes sociais favoritas</p>
+            </li>
+            <li>
+              <p>Compatível com todos os dispositivos e navegadores</p>
+            </li>
           </ul>
         </div>
       </section>
