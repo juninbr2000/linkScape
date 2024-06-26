@@ -15,12 +15,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [googleButtonClicked, setGoogleButtonClicked] = useState(false);
   const navigate = useNavigate()
 
   const { login, error: AuthError, loading } = useAuthentication();
-
-  const provider = new GoogleAuthProvider();
   
   const auth = getAuth();
   const handleSubmit = async (e) => {
@@ -34,42 +31,6 @@ const Login = () => {
     };
     
     const res = await login(user);
-  }
-  
-  const handleGoogleLogin = () => {
-    setGoogleButtonClicked(true);
-    signInWithPopup(auth, provider)
-    .then(async (result) => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      const userG = result.user;
-      const displayName = userG.displayName || '' ;
-      const imageURL = userG.photoURL || '';
-      
-      const profileRef = doc(db, 'profile', userG.uid); // Obtém a referência para o documento do perfil usando o UID do usuário
-      const profileSnapshot = await getDoc(profileRef);
-      if (profileSnapshot.exists()) {
-        navigate(`/${userG.uid}`)
-      } else {
-      try {
-          setDoc(doc(db, 'profile', userG.uid), {
-            displayName: displayName,
-            email: userG.email,
-            imageUrl: imageURL,
-            description: '',
-            links: [],
-            verify: false,
-        })
-      } catch (error){
-        setError(error.message)
-      }}
-    }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.customData.email;
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      setGoogleButtonClicked(false);
-    });
   }
     
   useEffect(() => {
@@ -99,9 +60,6 @@ const Login = () => {
             {!loading && <button className='button'>Entrar</button>}
             {loading && <button className='button' disabled>Aguarde...</button>}
             <p className={styles.register}>não tem uma conta? <Link to={'/register'}>cadastre-se</Link></p>
-            <hr />
-            <p>outras formas de login</p>
-            <button className={styles.login_google} onClick={handleGoogleLogin} disabled={googleButtonClicked}><FaGoogle /> Google</button>
         </form>
     </div>
   )

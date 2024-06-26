@@ -23,7 +23,7 @@ const Home = () => {
           	<Link to={"/login"} className={styles.primary}>Entrar</Link>
             <p>ou</p>
             <Link to={"/register"} className={styles.secondary}>Criar conta</Link>
-          </> : <Link to={`/${user.uid}`} className={styles.primary}>Meu Perfil</Link> }
+          </> : <Link to={`/${user.displayName}`} className={styles.primary}>Meu Perfil</Link> }
         </div>
       </header>
       <section className={styles.section}>

@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import { useAuthentication } from '../../hooks/useAuthentication'
 
 import styles from './Register.module.css'
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, query, where, getDoc, getDocs } from 'firebase/firestore';
 
 
 const Register = () => {
@@ -25,6 +25,8 @@ const Register = () => {
       e.preventDefault()
 
       setError("")
+
+
       const user = {
           displayName,
           email,
@@ -34,6 +36,10 @@ const Register = () => {
         setError("Preencha todos os campos!")
         return
       }
+      if (!isValidDisplayName(displayName)) {
+        setError("Nome de usuário contém caracteres inválidos!");
+        return;
+      }
       if(password.length < 8){
         setError("As senhas precisam conter pelo menos 8 caracteres");
         return
@@ -41,6 +47,11 @@ const Register = () => {
       if(password !== confirmPassword){
           setError("As senhas precisam ser iguais!!")
           return
+      }
+      const displayNameExist = await checkDisplayNameIsAvaliable(displayName);
+      if(displayNameExist){
+        setError('Este nome de usuario já esta em uso!')
+        return
       }
 
       try {
@@ -66,6 +77,17 @@ const Register = () => {
           setError(AuthError)
       }
   })
+  
+  const checkDisplayNameIsAvaliable = async (displayName) => {
+    const q = query(collection(db, 'profile'), where('displayName', '==', displayName));
+    const querySnapshot = await getDocs(q);
+    return !querySnapshot.empty
+  }
+
+  const isValidDisplayName = (displayName) => {
+    const regex = /^[a-zA-Z0-9_-]+$/;
+    return regex.test(displayName);
+  };
 
   return (
     <div className={styles.container_login}>

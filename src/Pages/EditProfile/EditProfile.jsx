@@ -6,12 +6,13 @@ import { useAuthValue } from '../../context/AuthContext';
 import { useUpdateDocument } from '../../hooks/useUpdadeDocument';
 import { uploadProfileImage } from '../../hooks/useUploadProfileImage';
 
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 
 import { FaCamera, FaLink, FaPen, FaTrash, FaPaintRoller } from 'react-icons/fa';
 import styles from './EditProfile.module.css';
 import Footer from '../../components/Footer';
+import { updateCurrentUser, updateProfile } from 'firebase/auth';
 
 const EditProfile = () => {
   const { user } = useAuthValue();
@@ -30,11 +31,7 @@ const EditProfile = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isSalving, setIsSalving] = useState(false)
-
-  if(id !== user.uid){    
-    navigate(`/${id}`)
-    return
-  }
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -45,7 +42,7 @@ const EditProfile = () => {
 
         if (profileSnapshot.exists()) {
           const profileData = profileSnapshot.data();
-          setDisplayName(profileData.displayName);
+          setDisplayName(profileData.displayName || user.displayName);
           setDescription(profileData.description || '');
           setLinks(profileData.links || []);
           setcolor(profileData.color || '#778899')
@@ -126,10 +123,23 @@ const EditProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setError('')
+
     if(displayName === ''){
-      console.log("nome faltando")
+      setError("nome faltando")
       return
     }
+
+    if (!isValidDisplayName(displayName)) {
+      setError("Nome de usuário contém caracteres inválidos!");
+      return;
+    }
+    
+    const displayNameExist = await checkDisplayNameIsAvaliable(displayName, user.uid);
+      if(displayNameExist){
+        setError('Este nome de usuario já esta em uso!')
+        return
+      }
 
     setIsSalving(true)
 
@@ -146,23 +156,40 @@ const EditProfile = () => {
       }
   
       // Atualiza os dados do perfil com o URL da imagem, se disponível
-      const updatedProfileData = {
+      const updatedProfileDoc = {
         displayName,
         description,
         links,
         color,
-        imageUrl,
+        imageUrl
       };
+      const updateProfileData = {
+        displayName,
+        photoURL: imageUrl,
+      }
   
       // Atualiza o documento do perfil no banco de dados
-      updateDocument(id, updatedProfileData);
-      navigate(`/${user.uid}`);
+      updateProfile(user, updateProfileData)
+      updateDocument(id, updatedProfileDoc);
+      navigate(`/${user.displayName}`);
       setIsSalving(false)
     } catch (error) {
       setIsSalving(false)
       console.error('Erro ao fazer upload da imagem:', error);
     }
   };
+
+  const checkDisplayNameIsAvaliable = async (displayName, userId) => {
+    const q = query(collection(db, 'profile'), where('displayName', '==', displayName))
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.some(doc => doc.id !== userId);
+  }
+
+  const isValidDisplayName = (displayName) => {
+    const regex = /^[a-zA-Z0-9_-]+$/;
+    return regex.test(displayName);
+  };
+
 
   const estilo = {
     backgroundColor: `${color}`
@@ -198,6 +225,7 @@ const EditProfile = () => {
           />
         </div>
         <div className={styles.info_profile}>
+          {error !== '' && <p className={styles.errorMsg}>{error}</p>}
           <label htmlFor="desc">Descrição:</label>
           <textarea
             name="description"

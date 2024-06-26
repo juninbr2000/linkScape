@@ -1,44 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-
-import { doc, getDoc } from 'firebase/firestore'
-
+import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { useAuthValue } from '../../context/AuthContext';
 import { db } from '../../firebase/config';
-
-import { FaCheck, FaUser, FaRegCopy } from 'react-icons/fa'
-import styels from "./Profile.module.css"
+import { FaCheck, FaUser, FaRegCopy } from 'react-icons/fa';
+import styles from './Profile.module.css';
 import Footer from '../../components/Footer';
 
-
 const Profile = () => {
-    const { id } = useParams();
+    const { displayName } = useParams();
     const { user } = useAuthValue();
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
-                const profileRef = doc(db, 'profile', id)
-                const profileSnapshot = await getDoc(profileRef)
+                const profileQuery = query(collection(db, 'profile'), where('displayName', '==', displayName));
+                const querySnapshot = await getDocs(profileQuery);
 
-                if (profileSnapshot.exists()) {
-                    setProfile(profileSnapshot.data());
+                if (!querySnapshot.empty) {
+                    const profileData = querySnapshot.docs[0].data();
+                    setProfile(profileData);
                 } else {
                     setProfile(null);
                 }
-                setLoading(false); // Indica que a busca dos dados foi concluída
+                setLoading(false);
             } catch (error) {
                 console.error('Erro ao recuperar os dados do perfil:', error);
-                setLoading(false); // Indica que a busca dos dados foi concluída, mesmo que com erro
+                setLoading(false);
             }
         };
 
         fetchProfileData();
-    }, [id]); // Executar a busca sempre que o ID do perfil mudar
+    }, [displayName]);
+
+    useEffect(() => {
+        if (!loading && !profile) {
+            navigate('*');
+        }
+    }, [loading, profile, navigate]);
 
     if (loading) {
         return <div className='load'>
@@ -48,31 +51,29 @@ const Profile = () => {
     }
     
     if (!profile) {
-       navigate('*');
-    } else {
-        console.log(profile)
+        return null; // Evitar renderizar qualquer coisa após a navegação
     }
 
     const copyLinkButton = () => {
-        const userUrl = window.location.href
+        const userUrl = window.location.href;
         
         const inputElement = document.createElement('input');
         inputElement.value = userUrl;
-        document.body.appendChild(inputElement)
+        document.body.appendChild(inputElement);
 
         inputElement.select();
         inputElement.setSelectionRange(0, 99999);
 
         document.execCommand('copy');
 
-        document.body.removeChild(inputElement)
+        document.body.removeChild(inputElement);
 
-        setMessage("Link copiado para area de transferencia!")
+        setMessage("Link copiado para área de transferência!");
 
         setTimeout(() => {
-            setMessage('')
-        }, 3000)
-    }
+            setMessage('');
+        }, 3000);
+    };
     
     const isColorDark = (color) => {
         color = color.replace('#', '');
@@ -85,35 +86,35 @@ const Profile = () => {
 
     const splitDescription = () => {
         return profile.description ? profile.description.split('\n') : [];
-    }
-    console.log(splitDescription)
+    };
+
     const links = profile.links || [];
     const ProfileBackgroundColor = {
         backgroundColor: profile.color,
         color: isColorDark(profile.color) ? '#fff' : '#000'
-    }
+    };
 
     return (
-        <div className={styels.container}>
-            <div className={styels.container_profile} style={ProfileBackgroundColor}>
-                <div className={styels.images_area}>
-                    {profile.imageUrl !== null ? <img src={`${profile.imageUrl}`} className={styels.profile_pic} alt='foto de perfil'/> : <div className={styels.no_profile_pic}><FaUser /></div>}
-                    <div className={styels.area_name}>
+        <div className={styles.container}>
+            <div className={styles.container_profile} style={ProfileBackgroundColor}>
+                <div className={styles.images_area}>
+                    {profile.imageUrl !== '' ? <img src={`${profile.imageUrl}`} className={styles.profile_pic} alt='foto de perfil'/> : <div className={styles.no_profile_pic}><FaUser /></div>}
+                    <div className={styles.area_name}>
                         <h3>{profile.displayName}</h3><p>{profile.verify === true ? <FaCheck /> : ''}</p>
                     </div>
                 </div>
-                <div className={styels.info_profile}>
-                    {profile.description && <div className={styels.desc}>
+                <div className={styles.info_profile}>
+                    {profile.description && <div className={styles.desc}>
                         {splitDescription().map((line, index) => (
                             <p key={index}>{line}</p>
                         ))}
                     </div>}
-                    {links.length > 0 ? links.map((link) => <a href={link.url} target='_blank' key={link.id} className={styels.area_link}>{link.title}</a>) : <p>Este usuario ainda nao adicionou nenhum link</p>}
-                    {user && user.uid === id && <div className={styels.user_buttons}>
-                        <button className={styels.edit} onClick={() => {navigate(`/edit/${id}`)}}>Editar perfil</button>
-                        <button className={styels.copy} onClick={copyLinkButton}><FaRegCopy/></button>
+                    {links.length > 0 ? links.map((link) => <a href={link.url} target='_blank' key={link.id} className={styles.area_link}>{link.title}</a>) : <p>Este usuário ainda não adicionou nenhum link</p>}
+                    {user && user.displayName === profile.displayName && <div className={styles.user_buttons}>
+                        <button className={styles.edit} onClick={() => {navigate(`/edit/${user.uid}`)}}>Editar perfil</button>
+                        <button className={styles.copy} onClick={copyLinkButton}><FaRegCopy/></button>
                     </div>}
-                        {message && <p className={styels.alert}>{message}</p>}
+                    {message && <p className={styles.alert}>{message}</p>}
                     <Footer/>
                 </div>
             </div>

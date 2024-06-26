@@ -41,7 +41,7 @@ const Navbar = () => {
             {user && (
                 <>
                     <li>
-                        <NavLink to={`/${user.uid}`} className={({isActive}) => (isActive ? styles.active : '')} onClick={toggleMenu}><FaUser/> Perfil</NavLink>
+                        <NavLink to={`/${user.displayName}`} className={({isActive}) => (isActive ? styles.active : '')} onClick={toggleMenu}><FaUser/> Perfil</NavLink>
                     </li>
                     <li>
                         <NavLink to={`/edit/${user.uid}`} className={({isActive}) => (isActive ? styles.active : '')} onClick={toggleMenu}><FaUserEdit/> Editar Perfil</NavLink>
