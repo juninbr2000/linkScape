@@ -31,6 +31,7 @@ const EditProfile = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isSalving, setIsSalving] = useState(false)
+  const [buttonstyle, SetButtonStyle] = useState('button1')
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const EditProfile = () => {
           setDescription(profileData.description || '');
           setLinks(profileData.links || []);
           setcolor(profileData.color || '#778899')
+          SetButtonStyle(profileData.buttonstyle || 'button1')
           setProfileImage(profileData.imageUrl || null)
           console.log(profileData)
         }
@@ -105,7 +107,7 @@ const EditProfile = () => {
   };
 
   if(id !== user.uid){
-    navigate('*')
+    navigate(`/${displayName}`)
   }
 
   const editLink = (linkId) => {
@@ -161,7 +163,8 @@ const EditProfile = () => {
         description,
         links,
         color,
-        imageUrl
+        imageUrl,
+        buttonstyle,
       };
       const updateProfileData = {
         displayName,
@@ -190,9 +193,20 @@ const EditProfile = () => {
     return regex.test(displayName);
   };
 
+  const isColorDark = (color) => {
+    color = color.replace('#', '');
+    let r = parseInt(color.substring(0, 2), 16);
+    let g = parseInt(color.substring(2, 4), 16);
+    let b = parseInt(color.substring(4, 6), 16);
+    let brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    return brightness < 128;
+  };
 
   const estilo = {
-    backgroundColor: `${color}`
+    backgroundColor: `${color}`,
+  }
+  const iptColor = {
+    color: isColorDark(color) ? '#fff' : '#000'
   }
 
   return (
@@ -221,6 +235,7 @@ const EditProfile = () => {
           <input
             type="text"
             value={displayName}
+            style={iptColor}
             onChange={(e) => setDisplayName(e.target.value)}
           />
         </div>
@@ -230,6 +245,7 @@ const EditProfile = () => {
           <textarea
             name="description"
             id={styles.desc}
+            style={iptColor}
             placeholder="Digite aqui uma descrição"
             maxLength={80}
             value={description}
@@ -243,6 +259,7 @@ const EditProfile = () => {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className={buttonstyle}
                   >
                     {link.title}
                   </a>
@@ -282,6 +299,30 @@ const EditProfile = () => {
             >
               X
             </button>
+
+            <p>Personalize o estilo do botão</p>
+            <div className={styles.buttons_area}>
+              <div>
+                <p>fundo transparente</p>
+                <button className={`${styles.buttonSelect1} ${buttonstyle === 'button1' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button1')}>Estilo 1</button>
+                <button className={`${styles.buttonSelect2} ${buttonstyle === 'button2' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button2')}>Estilo 2</button>
+                <button className={`${styles.buttonSelect3} ${buttonstyle === 'button3' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button3')}>Estilo 3</button>
+              </div>
+              <div>
+                <p>fundo branco / preto</p>
+                <button className={`${styles.buttonSelect4} ${buttonstyle === 'button4' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button4')}>Estilo 4</button>
+                <button className={`${styles.buttonSelect5} ${buttonstyle === 'button5' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button5')}>Estilo 5</button>
+                <button className={`${styles.buttonSelect6} ${buttonstyle === 'button6' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button6')}>Estilo 6</button>
+              </div>
+              <div>
+                <p>fundo colorido</p>
+                <button className={`${styles.buttonSelect7} ${buttonstyle === 'button7' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button7')}>Estilo 7</button>
+                <button className={`${styles.buttonSelect8} ${buttonstyle === 'button8' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button8')}>Estilo 8</button>
+                <button className={`${styles.buttonSelect9} ${buttonstyle === 'button9' ? styles.selectedButton : ''}`} type='button' onClick={() => SetButtonStyle('button9')}>Estilo 9</button>
+              </div>
+            </div>
+            <p className={styles.alert}>um unico estilo de botão é aplicado para todo o perfil</p>
+
             <p>Adicione Links ao seu perfil</p>
             <label htmlFor="title-link">Titulo</label>
             <input

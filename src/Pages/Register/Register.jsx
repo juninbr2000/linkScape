@@ -26,7 +26,6 @@ const Register = () => {
 
       setError("")
 
-
       const user = {
           displayName,
           email,
@@ -64,6 +63,7 @@ const Register = () => {
             description: '',
             links: [],
             verify: false,
+            id: res.uid
         })
         console.log(res)
         

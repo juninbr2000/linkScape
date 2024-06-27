@@ -106,16 +106,18 @@ const Profile = () => {
                 <div className={styles.info_profile}>
                     {profile.description && <div className={styles.desc}>
                         {splitDescription().map((line, index) => (
-                            <p key={index}>{line}</p>
+                            <p key={index} style={{color: isColorDark(profile.color) ? '#fff': '#000'}}>{line}</p>
                         ))}
                     </div>}
-                    {links.length > 0 ? links.map((link) => <a href={link.url} target='_blank' key={link.id} className={styles.area_link}>{link.title}</a>) : <p>Este usuário ainda não adicionou nenhum link</p>}
+                    {links.length > 0 ? links.map((link) => <a href={link.url} target='_blank' key={link.id} className={profile.buttonstyle}>{link.title}</a>) : <p>Este usuário ainda não adicionou nenhum link</p>}
                     {user && user.displayName === profile.displayName && <div className={styles.user_buttons}>
                         <button className={styles.edit} onClick={() => {navigate(`/edit/${user.uid}`)}}>Editar perfil</button>
                         <button className={styles.copy} onClick={copyLinkButton}><FaRegCopy/></button>
                     </div>}
                     {message && <p className={styles.alert}>{message}</p>}
-                    <Footer/>
+                    <div style={{padding: '50px'}}>
+                        <p style={{color: isColorDark(profile.color) ? '#fff': '#000'}}>LinkScape © 2024</p>
+                    </div>
                 </div>
             </div>
         </div>

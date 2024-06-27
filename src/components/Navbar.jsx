@@ -23,7 +23,7 @@ const Navbar = () => {
         <button className={styles.menu} onClick={toggleMenu}>●●●</button>
         <ul className={`${styles.menuList} ${isMenuOpen ? styles.showMenu : ''}`}>
             <h1 className="logo">Link<span>Scape</span></h1>
-            <button className={styles.close} onClick={toggleMenu}>X</button>
+            <button className={styles.close} onClick={toggleMenu}>x</button>
             <div className={styles.list}>
             <li>
                 <NavLink to='/' className={({isActive}) => (isActive ? styles.active : '')} onClick={toggleMenu}><FaHome/> Home</NavLink>
