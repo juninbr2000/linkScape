@@ -170,4 +170,40 @@ body{
   max-width: 480px;
   text-align: center;
   text-decoration: none;
+  background: linear-gradient(45deg, #ff6f61, #de2d8a); /* Example: Gradient colors */
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.button8{
+  padding: 10px 12px;
+  width: 80%;
+  font-size: 18px;
+  margin: 7px auto;
+  max-width: 480px;
+  text-align: center;
+  text-decoration: none;
+  background: linear-gradient(180deg, #56ccf2, #2f80ed); /* Example: Blue gradient */
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.button9{
+  padding: 10px 12px;
+  width: 80%;
+  font-size: 18px;
+  margin: 7px auto;
+  max-width: 480px;
+  text-align: center;
+  text-decoration: none;
+  background: linear-gradient(180deg, #a8e063, #56ab2f); /* Example: Green gradient */
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
 }
