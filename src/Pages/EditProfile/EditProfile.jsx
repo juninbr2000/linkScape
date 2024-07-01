@@ -7,7 +7,8 @@ import { useUpdateDocument } from '../../hooks/useUpdadeDocument';
 import { uploadProfileImage } from '../../hooks/useUploadProfileImage';
 
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../../firebase/config';
+import { ref, deleteObject } from 'firebase/storage';
+import { db, storage } from '../../firebase/config';
 
 import { FaCamera, FaLink, FaPen, FaTrash, FaPaintRoller } from 'react-icons/fa';
 import styles from './EditProfile.module.css';
@@ -33,6 +34,8 @@ const EditProfile = () => {
   const [isSalving, setIsSalving] = useState(false)
   const [buttonstyle, SetButtonStyle] = useState('button1')
   const [error, setError] = useState('')
+  const [oldProfileImage, setOldProfileImage] = useState(null);
+
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -48,7 +51,8 @@ const EditProfile = () => {
           setLinks(profileData.links || []);
           setcolor(profileData.color || '#778899')
           SetButtonStyle(profileData.buttonstyle || 'button1')
-          setProfileImage(profileData.imageUrl || null)
+          setProfileImage(profileData.imageUrl || null);
+          setOldProfileImage(profileData.imageUrl || null)
           console.log(profileData)
         }
       } catch (error) {
@@ -152,6 +156,11 @@ const EditProfile = () => {
         imageUrl = profileImage
 
       } else if (profileImage) {
+        if (oldProfileImage) {
+          // Exclui a imagem antiga
+          const oldImageRef = ref(storage, oldProfileImage);
+          await deleteObject(oldImageRef);
+        }
         // Faz o upload da imagem para o Firebase Storage
         imageUrl = await uploadProfileImage(profileImage);
         console.log(imageUrl)
@@ -288,7 +297,7 @@ const EditProfile = () => {
             </button>
           </div>
           {isSalving === false ? <button className="button">Salvar Perfil</button> : <button disabled className='button'>Aguarde...</button>}
-          <Footer/>
+          <Footer color={color}/>
         </div>
         {showLinksAdd === true && (
           <div className={styles.links_add}>

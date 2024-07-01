@@ -51,6 +51,22 @@ body{
   text-align: center;
   font-size: 12px;
 }
+.sliderContainer {
+  margin-top: 40px;
+  overflow: hidden;
+  & div{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    & .imageSlider{
+      & img{
+        width: 120px;
+        height: 250px;
+        border-radius: 10px;
+      }
+    }
+  }
+}
 .loader {
   width: 60px;
   aspect-ratio: 4;
@@ -206,4 +222,10 @@ body{
   color: white;
   font-weight: bold;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+}
+@media screen and (min-width: 720px) {
+  .sliderContainer div .imageSlider img{
+    width: 210px;
+    height: 400px;
+  }
 }

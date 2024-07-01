@@ -103,6 +103,7 @@
     border-radius: 10px;
     font-weight: bold;
     flex-grow: 1;
+    color: #000;
 }
 .copy{
     padding: 4px 25px;
