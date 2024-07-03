@@ -10,9 +10,11 @@ import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firesto
 import { ref, deleteObject } from 'firebase/storage';
 import { db, storage } from '../../firebase/config';
 
-import { FaCamera, FaLink, FaPen, FaTrash, FaPaintRoller } from 'react-icons/fa';
+import { FaCamera, FaLink, FaPen, FaTrash, FaPaintRoller, FaUser } from 'react-icons/fa';
 import styles from './EditProfile.module.css';
 import Footer from '../../components/Footer';
+import ImageModal from '../../components/ImageModal';
+
 import { updateCurrentUser, updateProfile } from 'firebase/auth';
 
 const EditProfile = () => {
@@ -20,6 +22,7 @@ const EditProfile = () => {
   const { id } = useParams();
   const { updateDocument, response } = useUpdateDocument('profile');
   const navigate = useNavigate();
+  console.log(user)
 
   const [showLinksAdd, setShowLinksAdd] = useState(false);
   const [displayName, setDisplayName] = useState('');
@@ -35,7 +38,9 @@ const EditProfile = () => {
   const [buttonstyle, SetButtonStyle] = useState('button1')
   const [error, setError] = useState('')
   const [oldProfileImage, setOldProfileImage] = useState(null);
-
+  const [imageModalVisible, setImageModalVisible] = useState(false);
+  const [deleted, setDeleted] = useState(false)
+  const [selectedImage, setSelectedImage] = useState(null)
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -69,10 +74,15 @@ const EditProfile = () => {
     }
   }, [user, profileImage]);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setProfileImage(file);
-    setPreviewImage(URL.createObjectURL(file)); // Cria um URL temporário para o objeto File
+  const handleImageChange = (file) => {
+    if (file !== '') {
+      setSelectedImage(file);
+      setPreviewImage(URL.createObjectURL(file));
+    } else {
+      setSelectedImage('');
+      setPreviewImage('');
+      setProfileImage('');
+    }
   };
 
   const toggleLinksAdd = () => {
@@ -150,23 +160,29 @@ const EditProfile = () => {
     setIsSalving(true)
 
     try {
-      let imageUrl = null;
-      
-      if (!document.getElementById('fileInput').files.length){
-        imageUrl = profileImage
-
-      } else if (profileImage) {
-        if (oldProfileImage) {
-          // Exclui a imagem antiga
-          const oldImageRef = ref(storage, oldProfileImage);
-          await deleteObject(oldImageRef);
-        }
-        // Faz o upload da imagem para o Firebase Storage
-        imageUrl = await uploadProfileImage(profileImage);
-        console.log(imageUrl)
-      }
+      let imageUrl = '';
   
-      // Atualiza os dados do perfil com o URL da imagem, se disponível
+      if(deleted === true){
+        imageUrl = ''
+      } else if (!selectedImage) {
+        imageUrl = profileImage;
+      } else if (selectedImage) {
+        if (oldProfileImage) {
+          // Verifica se a imagem antiga existe antes de tentar excluí-la
+          try {
+            const oldImageRef = ref(storage, oldProfileImage);
+            await deleteObject(oldImageRef);
+          } catch (error) {
+            if (error.code !== 'storage/object-not-found') {
+              throw error; // Repassa o erro se não for o erro de objeto não encontrado
+            }
+          }
+        }
+        // Faz o upload da nova imagem para o Firebase Storage
+        imageUrl = await uploadProfileImage(selectedImage);
+        console.log(imageUrl);
+      }
+
       const updatedProfileDoc = {
         displayName,
         description,
@@ -202,6 +218,8 @@ const EditProfile = () => {
     return regex.test(displayName);
   };
 
+  const closeModal = () => setImageModalVisible(false)
+
   const isColorDark = (color) => {
     color = color.replace('#', '');
     let r = parseInt(color.substring(0, 2), 16);
@@ -224,23 +242,16 @@ const EditProfile = () => {
         <div className={styles.image} style={estilo}>
           <label htmlFor="colorbac" style={{color: "#ffffff",display: 'block', alignSelf: 'flex-end', marginRight: '15px'}}><FaPaintRoller/></label>
           <input type="color" id='colorbac' value={color} onChange={(e) => setcolor(e.target.value)} style={{position: 'absolute', opacity: '0', width: '0', height:'0'}}/>
-          <label htmlFor="fileInput" className={user.imageUrl !== null ? styles.profile_btn : styles.profile_btn2}>
-            {previewImage ? (
-              <>
-                <img src={previewImage} />
-                <FaCamera />
-              </>
-            ) : profileImage != null ? <><img src={profileImage}/> <FaCamera/> </> : (
-              <FaCamera />
-            )}
-          </label>
-          <input
-            type="file"
-            id="fileInput"
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleImageChange}
-          />
+          <button onClick={() => setImageModalVisible(true)} type='button' className={styles.profile_btn}>
+            {!previewImage ? (profileImage !== null ? (<>
+                <FaCamera/>
+                <img src={profileImage} alt='Foto de perfil' /> 
+              </>) : (<>
+                <FaUser/>
+              </> )
+            ) : <img src={previewImage} /> }
+          </button>
+          {imageModalVisible === true && <ImageModal setDeleted={setDeleted} setPreviewImage={setPreviewImage} previewImage={previewImage} imagem={profileImage} onClose={() => closeModal()} userdata={user} userId={id} handleImageChange={handleImageChange}/>}
           <input
             type="text"
             value={displayName}

@@ -53,6 +53,7 @@ const Profile = () => {
     if (!profile) {
         return null; // Evitar renderizar qualquer coisa após a navegação
     }
+    console.log(profile)
 
     const copyLinkButton = () => {
         const userUrl = window.location.href;
@@ -98,7 +99,11 @@ const Profile = () => {
         <div className={styles.container}>
             <div className={styles.container_profile} style={ProfileBackgroundColor}>
                 <div className={styles.images_area}>
-                    {profile.imageUrl !== '' ? <img src={`${profile.imageUrl}`} className={styles.profile_pic} alt='foto de perfil'/> : <div className={styles.no_profile_pic}><FaUser /></div>}
+                    {profile.imageUrl !== '' ? 
+                        (<img src={`${profile.imageUrl}`} className={styles.profile_pic} alt='foto de perfil'/>) 
+                        : 
+                        (<div className={styles.no_profile_pic}><FaUser /></div>)
+                    }
                     <div className={styles.area_name}>
                         <h3>{profile.displayName}</h3><p>{profile.verify === true ? <FaCheck /> : ''}</p>
                     </div>
