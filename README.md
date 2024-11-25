@@ -2,7 +2,6 @@
 
 O **Linkscape** é um agrupador de links personalizado, onde os usuários podem criar perfis únicos, adicionar seus links favoritos e compartilhar facilmente com o mundo. Oferece recursos de registro, login e personalização completa do perfil.
 
----
 ## 🚀 Funcionalidades
 
 - Registro e login de usuários.
@@ -11,14 +10,12 @@ O **Linkscape** é um agrupador de links personalizado, onde os usuários podem 
 - Gestão fácil de links, permitindo adicionar, editar ou excluir.
 - Design responsivo para dispositivos móveis e desktop
 
----
 ## 🛠️ Tecnologias Utilizadas
 
 - **Frontend**: React, TypeScript.
 - **Backend**: Node.js, RealtimeDatabase 
 - **Autenticação**: Firebase Authentication.
 
----
 # 🤝 Contribuição
 
 **Contribuições são bem-vindas! Para contribuir:**
@@ -41,9 +38,6 @@ git push origin minha-nova-funcionalidade
 
 5. Abra um Pull Request.
 
----
 
 # 📜 Licença
 Este projeto está sob a **licença MIT**. Consulte o arquivo LICENSE para mais detalhes.
-
----
