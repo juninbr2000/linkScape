@@ -46,7 +46,7 @@ function App() {
           <Routes>
             <Route path='/*' element={<Error/>} />
             <Route path='/' element={<Home />} />
-            <Route path='/login' element={!user ? <Login /> : <Home/>}/>
+            <Route path='/login' element={!user ? <Login /> : <Home />}/>
             <Route path='/register' element={!user ? <Register /> : <EditProfile/>} />
             <Route path='/:displayName' element={<Profile />} />
             <Route path='/edit/:id' element={user ? <EditProfile /> : <Login />} />

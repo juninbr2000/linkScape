@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styles from './Home.module.css';
 import { useAuthValue } from '../../context/AuthContext';
-import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaCheck } from 'react-icons/fa';
-import AutoPlay from '../../components/AutoPlay';
+import { Link } from 'react-router-dom'
+import AutoPlay from '../../components/AutoPlay'
+import {FaStar} from 'react-icons/fa'
 
 const Home = () => {
   const { user } = useAuthValue();
@@ -11,72 +11,52 @@ const Home = () => {
   console.log(user);
 
   return (
-    <div>
-      <header className={styles.header}>
-        <h3>Bem Vindo(a) ao</h3>
-        <h1 className='logo'>Link<span>Scape</span></h1>
-        <h3 className={styles.description}>Um Link, Diversas possibilidades</h3>
-
-        <div className={styles.header_btn}>
-          {!user ? (
-            <>
-              <Link to={"/login"} className={styles.primary}>Entrar</Link>
-              <p>ou</p>
-              <Link to={"/register"} className={styles.secondary}>Criar conta</Link>
-            </>
-          ) : (
-            <Link to={`/${user.displayName}`} className={styles.primary}>Meu Perfil</Link>
-          )}
+    <div className={styles.container}>
+      <header className={styles.header_home}>
+        <div className={styles.header_info}>
+          <h1>Bem vindo ao LinkScape.</h1>
+          <h3>acesse todos os seus links, apartir de um unico</h3>
+          {!user ? (<>
+            <Link className='button' to={'/login'}>Faça login</Link>
+            <Link className={styles.secundary} to={'/register'}>Cadastre-se</Link>
+          </>) :
+          <Link className='button' to={`/${user.displayName}`}>Meu perfil</Link>}
         </div>
+        <img src="/undraw_social.svg" alt="social-media" />
       </header>
-      <section className={styles.news}>
-        <div>
-          <h2 className={styles.title}>Novidades</h2>
-          <p>Atualizamos integralmente a visualização dos Perfis, expandindo significativamente as opções de personalização com diversas melhorias para proporcionar uma experiência mais aprimorada.</p>
-          <p>Além disso, facilitamos a localização dos perfis ao atualizar suas URLs, visando maior acessibilidade e confiabilidade</p>
+
+      <section className={styles.features}>
+        <div className={styles.features_info}>
+          <h3>O seu perfil, do seu jeito!</h3>
+          <p>São diversas maneiras de personalizar seu perfil, e deixa-lo de um jeito unico</p>
+          <h3>Diversos link em um so lugar</h3>
+          <p>Você pode adicionar quantos links quiser em seu perfil e compartilha-los, com um só link.</p>
+          <h3>Forma simples de achar o perfil</h3>
+          <p>o Nome é unico, e basta usar-lo para achar o perfil desejado.</p>
         </div>
+        <img src="/undraw_editable.svg" alt="ediçao de perfil" />
       </section>
-      <section className={styles.section}>
-        <div>
-          <h2 className={styles.title}>Todas as Suas Redes Sociais em um Único Link</h2>
-          <p>Organize e compartilhe todas as suas redes sociais e links importantes em um só lugar com LinkScape. Simplifique a forma como você compartilha suas informações online e torne mais fácil para seus seguidores encontrarem e se conectarem com você em todas as plataformas.</p>
+
+      <section className={styles.social}>
+        <div className={styles.social_info}>
+          <h2>Todas suas redes sociais em um Link</h2>
+          <p>Organize e compartilhe suas redes sociais e seus links mais importantes em um só lugar, e torne mais facil para seus seguidores te acompanharem.</p>
         </div>
         <AutoPlay />
       </section>
-      <section className={styles.sections_links}>
-        <div>
-          <h2 className={styles.title}>Das suas redes Sociais ou até o seu site</h2>
-          <p>No LinkScape você pode adicionar qualquer link, desde suas redes sociais ou até mesmo o site da sua loja, empresa ou seu portifolio</p>
+
+      <section className={styles.share}>
+        <div className={styles.share_info}>
+          <h2>O unico link que você precisa</h2>
+          <p>Ao criar você ganha um link unico para acessar seu perfil, atravez do nome de usuario que você escolheu, o que deixa tudo mais facil na hora de compartilhar</p>
+          <code className={styles.code}>linkscape.netlify.app/[seu_nome_de_usuario] <FaStar/></code>
         </div>
-        <div className={styles.btn_container}>
-          <h3 className={styles.link_btn}>Facebook</h3>
-          <h3 className={styles.link_btn}>Instagram</h3>
-          <h3 className={styles.link_btn}>Linkedin</h3>
-        </div>
+        <img src="/undraw_share.svg" alt="compartilhamento facil" />
       </section>
-      <section className={styles.section3}>
-        <div className={styles.features}>
-          <h2 className={styles.title}>Recursos Principais do LinkScape</h2>
-          <p>Pensamos na melhor e mais simples maneira para adicionar e editar seus links, de forma facil rapida e segura</p>
-          <ul className={styles.list}>
-            <li>
-              <p>Personalização total do seu perfil</p>
-            </li>
-            <li>
-              <p>Integração simples com suas redes sociais favoritas</p>
-            </li>
-            <li>
-              <p>Compatível com todos os dispositivos e navegadores</p>
-            </li>
-          </ul>
-        </div>
-        <div className={styles.icons}>
-          <FaFacebook />
-          <FaInstagram />
-          <FaTwitter />
-          <FaLinkedin />
-        </div>
-      </section>
+
+      <footer className={styles.footer}>
+        LinkScape©2025
+      </footer>
     </div>
   );
 };

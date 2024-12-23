@@ -98,23 +98,30 @@ const Register = () => {
             <p>A Melhor maneira de agrupar seus links!</p>
         </div>
         <div className={styles.inputs_login}>
-
+          <div className={styles.label_input}>
             <label htmlFor="txtName">Nome: </label>
             <input type="text" id='txtName' placeholder='Nome de usuario' autoComplete='username' value={displayName} onChange={(e)=>setDisplayName(e.target.value)}/>
-            
+          </div>
+
+          <div className={styles.label_input}>
             <label htmlFor="txtEmail">Email: </label>
             <input type="email" id='txtEmail' placeholder='Email de usuario' autoComplete='email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
+          </div> 
 
+          <div className={styles.label_input}>
             <label htmlFor="txtPassword">Senha: </label>
             <input type="password" id='txtPassword' placeholder='Digite sua senha' autoComplete='new-password' value={password} onChange={(e)=>setPassword(e.target.value)} />
+          </div>
 
+          <div className={styles.label_input}>
             <label htmlFor="txtConfirmPassword">Confirme sua senha: </label>
             <input type="password" id='txtConfirmPassword' placeholder='Confrime sua senha' autoComplete='new-password' value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)} />
+          </div>
 
         </div>
         {error && <p className='error'>{error}</p>}
-        {!loading && <button className='button'>Cadastrar</button>}
-        {loading && <button className='button' disabled>Aguarde...</button>}
+        {!loading && <button className={styles.button}>Cadastrar</button>}
+        {loading && <button className={styles.button} disabled>Aguarde...</button>}
         <p className={styles.register}>já tem uma conta? <Link to={'/login'}>faça login</Link></p>
     </form>
 </div>

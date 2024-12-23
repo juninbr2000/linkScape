@@ -12,8 +12,8 @@ const AutoPlay = () => {
         slidesToShow: 2,
         slidesToScroll: 1,
         autoplay: true,
-        speed: 5000,
-        autoplaySpeed: 5000,
+        speed: 10000,
+        autoplaySpeed: 0,
         cssEase: "linear",
         arrows: false,
     }

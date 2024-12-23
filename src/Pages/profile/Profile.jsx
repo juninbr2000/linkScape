@@ -121,7 +121,7 @@ const Profile = () => {
                     </div>}
                     {message && <p className={styles.alert}>{message}</p>}
                     <div style={{padding: '50px'}}>
-                        <p style={{color: isColorDark(profile.color) ? '#fff': '#000'}}>LinkScape © 2024</p>
+                        <p style={{color: isColorDark(profile.color) ? '#fff': '#000'}}>LinkScape © 2025</p>
                     </div>
                     {!user && <Link to='/register' className={profile.buttonstyle} style={{display: 'block'}}>Faça como {profile.displayName}! Entre para o linkScape</Link>}
                 </div>
