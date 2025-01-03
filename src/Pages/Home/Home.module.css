@@ -1,6 +1,6 @@
 .container{
     background-color: #f9f9f9;
-    height: 100vh;
+    height: max-content;
 }
 .header_home{
     display: flex;
@@ -121,6 +121,7 @@
     background-color: #2194ae;
     max-width: 1480px;
     margin: auto;
+    box-sizing: border-box;
 }
 
 @media screen and (min-width: 780px) {

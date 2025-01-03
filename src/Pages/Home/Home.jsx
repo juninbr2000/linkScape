@@ -15,12 +15,12 @@ const Home = () => {
       <header className={styles.header_home}>
         <div className={styles.header_info}>
           <h1>Bem vindo ao LinkScape.</h1>
-          <h3>acesse todos os seus links, apartir de um unico</h3>
+          <h3>acesse todos os seus links, a partir de um único</h3>
           {!user ? (<>
             <Link className='button' to={'/login'}>Faça login</Link>
             <Link className={styles.secundary} to={'/register'}>Cadastre-se</Link>
           </>) :
-          <Link className='button' to={`/${user.displayName}`}>Meu perfil</Link>}
+          <Link className='button' to={`/${user.displayName}`}>Acessar seu perfil</Link>}
         </div>
         <img src="/undraw_social.svg" alt="social-media" />
       </header>
@@ -28,11 +28,11 @@ const Home = () => {
       <section className={styles.features}>
         <div className={styles.features_info}>
           <h3>O seu perfil, do seu jeito!</h3>
-          <p>São diversas maneiras de personalizar seu perfil, e deixa-lo de um jeito unico</p>
+          <p>São diversas maneiras de personalizar seu perfil, e deixa-lo de um jeito único</p>
           <h3>Diversos link em um so lugar</h3>
           <p>Você pode adicionar quantos links quiser em seu perfil e compartilha-los, com um só link.</p>
           <h3>Forma simples de achar o perfil</h3>
-          <p>o Nome é unico, e basta usar-lo para achar o perfil desejado.</p>
+          <p>O nome é único, e basta usa-lo para achar o perfil desejado.</p>
         </div>
         <img src="/undraw_editable.svg" alt="ediçao de perfil" />
       </section>

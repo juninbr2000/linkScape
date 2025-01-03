@@ -24,6 +24,7 @@
     width: 190px;
     height: 190px;
     border-radius: 10px;
+    object-fit: cover;
 }
 .closeBtn{
     position: absolute;
