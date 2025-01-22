@@ -81,6 +81,7 @@ const Login = () => {
                 <button className={styles.visibility} type='button' onClick={() => setVisible(!visible)}>{visible === false ? (<FaEyeSlash />) : (<FaEye/>)}</button>
               </div>
             </div>
+            <Link to={'/reset'} style={{textAlign: 'end', display: 'block', fontSize: '.9em', color: 'gray', textDecoration: 'none'}}>Esqueceu a senha?</Link>
             {error && <p className='error'>{error}</p>}
             {!loading && <button className={styles.button}>Entrar</button>}
             {loading && <button className={styles.button} disabled>Aguarde...</button>}

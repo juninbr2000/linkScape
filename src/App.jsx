@@ -14,6 +14,7 @@ import Profile from './Pages/profile/Profile.jsx';
 import Navbar from './components/Navbar.jsx';
 import Error from './Pages/ErrorPage/Error.jsx';
 import Footer from './components/Footer.jsx';
+import Reset from './Pages/ResetPassword/Reset.jsx';
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
           <Routes>
             <Route path='/*' element={<Error/>} />
             <Route path='/' element={<Home />} />
+            <Route path='/reset' element={<Reset />} />
             <Route path='/login' element={!user ? <Login /> : <Home />}/>
             <Route path='/register' element={!user ? <Register /> : <EditProfile/>} />
             <Route path='/:displayName' element={<Profile />} />

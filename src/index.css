@@ -223,6 +223,58 @@ body{
   font-weight: bold;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+.modal{
+  position: absolute;
+  background-color: #fff;
+  color: black;
+  padding: 30px 15px;
+  width: 70%;
+  box-shadow: 0 0 5px 100vh #00000050;
+  border-radius: 20px;
+  text-align: center;
+  left: 50%;
+  top: 40%;
+  transform: translateY(40%);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  & h2{
+    font-size: 4em;
+    background-color: #56ab2f;
+    color: #fefefe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 50px;
+    animation: rotate 1s .5s 1 ease-in-out;
+  }
+  & p{
+    font-size: 1.1em;
+    color: #000;
+    font-weight: 700;
+  }
+}
+
+@keyframes rotate {
+  0%{
+    transform: rotateY(0deg);
+  }
+  25%{
+    transform: rotateY(90deg);
+  }
+  75%{
+    transform: rotateY(270deg);
+  }
+  100%{
+    transform: rotateY(360deg);
+  }
+}
+
 @media screen and (min-width: 720px) {
   .sliderContainer div .imageSlider img{
     width: 210px;

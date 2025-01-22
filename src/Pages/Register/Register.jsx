@@ -105,7 +105,7 @@ const Register = () => {
 
           <div className={styles.label_input}>
             <label htmlFor="txtEmail">Email: </label>
-            <input type="email" id='txtEmail' placeholder='Email de usuario' autoComplete='email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
+            <input type="email" id='txtEmail' placeholder='email@exemplo.com' autoComplete='email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
           </div> 
 
           <div className={styles.label_input}>

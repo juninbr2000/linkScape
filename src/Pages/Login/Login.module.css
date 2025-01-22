@@ -44,7 +44,10 @@
         outline: none;
     }
 }
-
+.title {
+    margin-bottom: 40px;
+    text-align: center;
+}
 .visibility{
     position: absolute;
     right: 10px;
